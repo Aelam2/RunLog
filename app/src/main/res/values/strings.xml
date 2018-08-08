@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Simple Running Log</string>
+    <string name="new_Entry_Title_Text">TITLE</string>
+    <string name="new_EntryDateText">DATE</string>
+    <string name="newEntryTypeText">TYPE</string>
+    <string name="newEntrySurfaceText">SURFACE</string>
+    <string name="runTitleHintText">Insert Run Title Here</string>
+    <string name="distanceNewEntry">DISTANCE</string>
+    <string name="buttonDateText">PRESS TO SELECT DATE</string>
+    <string name="newEntryTotalTime">ELAPSED TIME</string>
+    <string-array name="runTypes">
+        <item>Easy</item>
+        <item>Long</item>
+        <item>Tempo</item>
+        <item>Interval</item>
+    </string-array>
+    <string-array name="surfaceTypes">
+        <item>Road</item>
+        <item>Trail</item>
+        <item>Track</item>
+        <item>Mixed</item>
+    </string-array>
+    <string-array name="dateProto">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+</resources>
