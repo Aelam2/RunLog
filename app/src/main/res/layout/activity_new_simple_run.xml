@@ -7,6 +7,7 @@
     android:background="@color/colorPrimary"
     tools:context=".newSimpleRun">
 
+>>>>>>> refs/heads/master
     <EditText
         android:id="@+id/titleEdit"
         android:layout_width="246dp"
