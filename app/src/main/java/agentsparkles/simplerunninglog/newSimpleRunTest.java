@@ -92,6 +92,11 @@ public class newSimpleRun extends AppCompatActivity {
         finalDate = String.valueOf(dateButton.getText());
         finalRunType = getRunType();
         finalSurfaceType = getSurfaceType();
+        
+        year = finalDate.substring(finalDate.lastIndexOf("/") + 1)
+        day = finalDate.substring(finalDate.indexOf("/") + 1, finalDate.lastIndexOf("/") - 1 )
+        month = finalDate.substring(0, finalDate.indexOf("/") - 1 )
+        // 10/6/1997
 
         //figure out value type
         //differentiate distance and the unit
@@ -120,7 +125,7 @@ public class newSimpleRun extends AppCompatActivity {
                 datePickerDialog = new DatePickerDialog(newSimpleRun.this, R.style.TimePickerTheme, new     DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        String newDate = month + "/" + dayOfMonth + "/" + year;
+                        String newDate = String.format("%02d", month) + "/" + String.format("%02d", dayOfMonth) + "/" + year;
                         dateButton.setText(newDate);
                     }
                 }, year, month, day);

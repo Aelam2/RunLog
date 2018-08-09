@@ -8,6 +8,7 @@
     <string name="distanceNewEntry">DISTANCE</string>
     <string name="buttonDateText">PRESS TO SELECT DATE</string>
     <string name="newEntryTotalTime">ELAPSED TIME</string>
+    <string name="distanceButtonText">0.00</string>
     <string-array name="runTypes">
         <item>Easy</item>
         <item>Long</item>
@@ -16,8 +17,9 @@
     </string-array>
     <string-array name="surfaceTypes">
         <item>Road</item>
-        <item>Trail</item>
         <item>Track</item>
+        <item>Treadmill</item>
+        <item>Trail</item>
         <item>Mixed</item>
     </string-array>
     <string-array name="dateProto">
