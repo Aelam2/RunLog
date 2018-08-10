@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".newSimpleRun">
+    tools:context=".newSimpleRun"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <Button
         android:id="@+id/saveButton"
@@ -48,10 +50,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-<<<<<<< HEAD
-=======
-                
->>>>>>> 406b007c3c79dcd82afe90ea7bc1606ba977c8f1
 
             <Spinner
                 android:id="@+id/runTypeSpinner"
@@ -147,10 +145,6 @@
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/elapsedTimeText" />
-<<<<<<< HEAD
-=======
-                
->>>>>>> 406b007c3c79dcd82afe90ea7bc1606ba977c8f1
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
