@@ -17,8 +17,9 @@
     </string-array>
     <string-array name="surfaceTypes">
         <item>Road</item>
-        <item>Trail</item>
         <item>Track</item>
+        <item>Treadmill</item>
+        <item>Trail</item>
         <item>Mixed</item>
     </string-array>
     <string-array name="dateProto">

@@ -64,27 +64,15 @@ public class newSimpleRun extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Creates dialog and allows distance selection
-<<<<<<< HEAD
-                    showDistancePicker();
-                    }
-
-                });
-=======
                 showDistancePicker();
                 }});
->>>>>>> 406b007c3c79dcd82afe90ea7bc1606ba977c8f1
 
         Button elapsedTimeButton = findViewById(R.id.elapsedTimeButton);
         elapsedTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showElapsedTimePicker();
-<<<<<<< HEAD
-            }
-        });
-=======
             }});
->>>>>>> 406b007c3c79dcd82afe90ea7bc1606ba977c8f1
 
 
     editTitle = findViewById(R.id.titleEdit);
@@ -96,11 +84,7 @@ public class newSimpleRun extends AppCompatActivity {
         }
     });
 
-<<<<<<< HEAD
-
-=======
 //End of OnCreate
->>>>>>> 406b007c3c79dcd82afe90ea7bc1606ba977c8f1
 }
 
     private void saveData(String finalTitle, String finalDate, String finalRunType, String finalSurfaceType, String finalDistance, String finalTime) {
@@ -108,6 +92,11 @@ public class newSimpleRun extends AppCompatActivity {
         finalDate = String.valueOf(dateButton.getText());
         finalRunType = getRunType();
         finalSurfaceType = getSurfaceType();
+        
+        year = finalDate.substring(finalDate.lastIndexOf("/") + 1)
+        day = finalDate.substring(finalDate.indexOf("/") + 1, finalDate.lastIndexOf("/") - 1 )
+        month = finalDate.substring(0, finalDate.indexOf("/") - 1 )
+        // 10/6/1997
 
         //figure out value type
         //differentiate distance and the unit
@@ -116,15 +105,8 @@ public class newSimpleRun extends AppCompatActivity {
 
         String toastNot = finalTitle + finalDate + finalRunType + finalSurfaceType + String.valueOf(finalDistance + finalTime);
         Toast.makeText(this, toastNot, Toast.LENGTH_LONG).show();
-<<<<<<< HEAD
-//        Toast.makeText(this, finalRunType, Toast.LENGTH_LONG).show();
-//        Toast.makeText(this, finalSurfaceType, Toast.LENGTH_LONG).show();
-//        Toast.makeText(this, String.valueOf(finalDistance), Toast.LENGTH_LONG).show();
-//        Toast.makeText(this, finalTime, Toast.LENGTH_LONG).show();
-=======
         
         newEntry(String finalTitle, String finalDate, String finalRunType, String finalSurfaceType, String finalDistance, String finalTime);
->>>>>>> 406b007c3c79dcd82afe90ea7bc1606ba977c8f1
 
     }
 
@@ -140,14 +122,10 @@ public class newSimpleRun extends AppCompatActivity {
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
-                datePickerDialog = new DatePickerDialog(newSimpleRun.this, R.style.TimePickerTheme, new DatePickerDialog.OnDateSetListener() {
-=======
                 datePickerDialog = new DatePickerDialog(newSimpleRun.this, R.style.TimePickerTheme, new     DatePickerDialog.OnDateSetListener() {
->>>>>>> 406b007c3c79dcd82afe90ea7bc1606ba977c8f1
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        String newDate = month + "/" + dayOfMonth + "/" + year;
+                        String newDate = String.format("%02d", month) + "/" + String.format("%02d", dayOfMonth) + "/" + year;
                         dateButton.setText(newDate);
                     }
                 }, year, month, day);
