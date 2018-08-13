@@ -8,12 +8,14 @@
     <string name="distanceNewEntry">DISTANCE</string>
     <string name="buttonDateText">PRESS TO SELECT DATE</string>
     <string name="newEntryTotalTime">ELAPSED TIME</string>
-    <string name="distanceButtonText">0.00</string>
+    <string name="distanceButtonText">0.00 mi</string>
     <string-array name="runTypes">
         <item>Easy</item>
         <item>Long</item>
-        <item>Tempo/Threshold</item>
+        <item>Threshold</item>
+        <item>Tempo</item>
         <item>Interval</item>
+        <item>Race</item>
     </string-array>
     <string-array name="surfaceTypes">
         <item>Road</item>
@@ -28,5 +30,11 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Most Recent Runs</string>
+    <string name="delete_run">Delete Run</string>
+    <string name="save_run">SAVE RUN</string>
+    <string name="_00_00_00">00:00:00</string>
+    <string name="delete_all">Delete All</string>
+    <string name="title_activity_single_day_viewer">Single Day Selector</string>
+    <string name="update_run">UPDATE RUN</string>
 </resources>

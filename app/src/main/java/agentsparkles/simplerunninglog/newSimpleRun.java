@@ -1,21 +1,29 @@
 package agentsparkles.simplerunninglog;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.arch.persistence.room.Database;
+import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import static java.lang.String.valueOf;
 
@@ -26,6 +34,10 @@ public class newSimpleRun extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     Calendar currentDate;
     int day, month, year;
+
+    Button timeButton;
+    int hour, minute;
+    int hourFinal, minuteFinal;
 
     //Set Number Picker Variables
     Button distanceButton;
@@ -48,6 +60,7 @@ public class newSimpleRun extends AppCompatActivity {
     int finalDistance;
     String finalTime;
     String finalTitle;
+    String avgPace;
 
     //Save Button;
     Button saveButton;
@@ -62,8 +75,22 @@ public class newSimpleRun extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build();
 
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        String formattedDate = df.format(c);
+
+        dateButton = findViewById(R.id.buttonDatePicker);
+        dateButton.setText(formattedDate);
         //Calls the method that retrieves the calendar date
         getDate();
+
+        Date t = Calendar.getInstance().getTime();
+        SimpleDateFormat adf = new SimpleDateFormat("hh:mm aa");
+        String formattedTime = adf.format(t);
+        timeButton = findViewById(R.id.timeDatePicker);
+        timeButton.setText(formattedTime);
+        //Calls time retrieval
+        getTime();
 
         //Set distanceButton
         Button distanceButton = findViewById(R.id.distanceButton);
@@ -82,52 +109,113 @@ public class newSimpleRun extends AppCompatActivity {
                 showElapsedTimePicker();
             }});
 
-
         editTitle = findViewById(R.id.titleEdit);
         saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveData(finalTitle, finalDate, finalRunType, finalSurfaceType, finalDistance, finalTime, db);
+                try {
+                    saveData(finalTitle, finalDate, finalRunType, finalSurfaceType, finalDistance, finalTime, db);
+                }
+                catch(Exception ParseException){
+                    Log.e("Fail", "onClick: ", ParseException);
+                }
             }
         });
 
 //End of OnCreate
     }
 
-    private void saveData(String finalTitle, String date, String finalRunType, String finalSurfaceType, int finalDistance, String time, runDatabase db) {
+    private void saveData(String finalTitle, String date, String finalRunType, String finalSurfaceType, double finalDistance, String time, runDatabase db) throws ParseException {
+
+        //Get Title of Run
         finalTitle = editTitle.getText().toString();
-        date = String.valueOf(dateButton.getText());
+        //Gets Run Type from Spinner
         finalRunType = getRunType();
+        //Gets Surface Type from spinner
         finalSurfaceType = getSurfaceType();
 
-        year = Integer.parseInt(date.substring(date.lastIndexOf("/") + 1));
-        day = Integer.parseInt(date.substring(date.indexOf("/") + 1, date.lastIndexOf("/") - 1 ));
-        month = Integer.parseInt(date.substring(0, date.indexOf("/") ));
-        // 10/6/1997
-        date = String.valueOf(year) + String.valueOf(month) + String.valueOf(day);
-        int finalDate = Integer.parseInt(date);
 
-        //figure out value type
-        //differentiate distance and the unit
-//        finalDistance = Integer.parseInt(distanceButton.getText().toString());
-//        time = elapsedTimeButton.getText().toString();
+        //Gets local device time
+        //Eventually add option to select time of run
+        String chosenTime = timeButton.getText().toString();
 
-//        int seconds = Integer.parseInt(time.substring(time.lastIndexOf(":") + 1));
-//        int minutes = Integer.parseInt(time.substring(time.indexOf(":") + 1, date.lastIndexOf(":") - 1 ));
-//        int hours = Integer.parseInt(time.substring(0, time.indexOf(":") - 1 ));
 
+        //Gets text from Date button and creates a readable string
+        date = String.valueOf(dateButton.getText());
+        String year = date.substring(date.lastIndexOf("-") + 1);
+        String day = date.substring(date.indexOf("-") + 1, date.lastIndexOf("-") );
+        String month = date.substring(0, date.indexOf("-") );
+        String convertDate = String.valueOf(year) +"-"+ String.valueOf(month) +"-"+ String.valueOf(day);
+
+        //Adds Local time and date of run
+        String currentTotalTime = chosenTime + " "+ convertDate;
+        //Converts date and time to milliseconds for database reading
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm aa yyyy-MM-dd");
+        Date longDate = df.parse(currentTotalTime);
+        long millis = longDate.getTime();
+        Log.i("time", String.valueOf(millis));
+
+        //Converts and seperates distanceButton text into a double for distance run and string for units
+        distanceButton = findViewById(R.id.distanceButton);
+        String distanceText = distanceButton.getText().toString();
+        String distanceUnit = distanceText.substring(distanceText.lastIndexOf(" "));
+        finalDistance = Double.parseDouble(distanceText.substring(0,distanceText.indexOf(" ")));
+        Log.i("distance", String.valueOf(finalDistance));
+        Log.i("unit", distanceUnit);
+
+        elapsedTimeButton = findViewById(R.id.elapsedTimeButton);
+        time = elapsedTimeButton.getText().toString();
+        String seconds = time.substring(time.lastIndexOf(":") + 1);
+        String minutes = time.substring(time.indexOf(":") + 1, time.lastIndexOf(":"));
+        String hours = time.substring(0, time.indexOf(":"));
+        int totalTimeInSeconds = Integer.parseInt(seconds) + Integer.parseInt(minutes ) * 60 + Integer.parseInt(hours ) * 3600;
+        long totalTimeinMilli = totalTimeInSeconds * 1000;
+//        //00:52:32
 //        int finalTime = seconds + (minutes * 60) + (hours * 60 * 60);
+        Log.i("totalSecondsRun", String.valueOf(totalTimeInSeconds));
+        avgPace = getAvgPace( totalTimeinMilli, finalDistance);
 
-        String toastNot = finalTitle + date + finalRunType + finalSurfaceType + String.valueOf(finalDistance + finalTime);
-        Toast.makeText(this, toastNot, Toast.LENGTH_LONG).show();
+        if (!finalTitle.equals("") ) {
+            if (finalDistance != 0.00) {
+                if (totalTimeInSeconds != 0) {
+                    String toastNot = finalTitle + date + finalRunType + finalSurfaceType + String.valueOf(finalDistance + totalTimeInSeconds);
+                    Toast.makeText(this, toastNot, Toast.LENGTH_LONG).show();
+                    db.runEntryDAO().insertAll(new runEntry(millis, finalTitle, finalRunType, finalSurfaceType, distanceUnit, finalDistance, totalTimeInSeconds, avgPace));
+                    startActivity(new Intent(newSimpleRun.this, recentActivty.class));
+                }
+                else {String missingFields = "Total Distance is blank";
+                Toast.makeText(this, missingFields, Toast.LENGTH_LONG).show();}
+            }
+            else {
+                String missingFields = "Total Distance is blank";
+                Toast.makeText(this, missingFields, Toast.LENGTH_LONG).show();}
+        }
+        else {
+            String missingFields = "Run Title is blank";
+            Toast.makeText(this, missingFields, Toast.LENGTH_LONG).show();}
 
-        db.runEntryDAO().insertAll(new runEntry(finalDate, finalTitle, finalRunType, finalSurfaceType, 8, 52));
-        startActivity(new Intent(newSimpleRun.this, MainActivity.class));
-
+        }
         //newEntry(String finalTitle, String finalDate, String finalRunType, String finalSurfaceType, String finalDistance, String finalTime);
 
-    }
+    private String getAvgPace(long totalTimeInMilli, double totalDistance) {
+
+            double avgPace = totalTimeInMilli / totalDistance;
+            long millAvgPace = (long)avgPace;
+            Date date = new Date(millAvgPace);
+            SimpleDateFormat fast = new SimpleDateFormat("m:ss");
+            SimpleDateFormat slow = new SimpleDateFormat("mm:ss");
+
+        Log.i("date", fast.format(date));
+
+
+            if (600000 > avgPace) {
+                return fast.format(date);
+            }else{
+                return slow.format(date);
+            }
+        }
+
 
     private void getDate() {
         //DatePicker views
@@ -137,6 +225,7 @@ public class newSimpleRun extends AppCompatActivity {
         month = currentDate.get(Calendar.MONTH);
         year = currentDate.get(Calendar.YEAR);
 
+
         //On Button Click, Date Picker
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +233,7 @@ public class newSimpleRun extends AppCompatActivity {
                 datePickerDialog = new DatePickerDialog(newSimpleRun.this, R.style.TimePickerTheme, new     DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        String newDate = String.format("%02d", month + 1) + "/" + String.format("%02d", dayOfMonth) + "/" + year;
+                        @SuppressLint("DefaultLocale") String newDate = String.format("%02d", month + 1) + "-" + String.format("%02d", dayOfMonth) + "-" + year;
                         dateButton.setText(newDate);
                     }
                 }, year, month, day);
@@ -153,15 +242,53 @@ public class newSimpleRun extends AppCompatActivity {
         });
     }
 
+    private void getTime(){
+        //DatePicker views
+        timeButton = findViewById(R.id.timeDatePicker);
+        currentDate = Calendar.getInstance();
+        hour = currentDate.get(Calendar.HOUR_OF_DAY);
+        minute = currentDate.get(Calendar.MINUTE);
+
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(newSimpleRun.this, R.style.TimePickerTheme, new TimePickerDialog.OnTimeSetListener() {
+                    @SuppressLint("DefaultLocale")
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        String am_pm = "";
+
+                       Calendar c = Calendar.getInstance();
+                       c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                       c.set(Calendar.MINUTE, minute);
+
+                        if (c.get(Calendar.AM_PM) == Calendar.AM)
+                            am_pm = "AM";
+                        else if (c.get(Calendar.AM_PM) == Calendar.PM)
+                            am_pm = "PM";
+                        String strHrsToShow = (c.get(Calendar.HOUR) == 0) ?"12":c.get(Calendar.HOUR)+"";
+                        timeButton.setText(strHrsToShow+":"+String.format("%02d",c.get(Calendar.MINUTE))+" "+am_pm);
+
+                    }
+                }, hour, minute, false);
+                timePickerDialog.show();
+            }
+        });
+    }
+
     private String getRunType() {
         //Get the runType selected by user
         Spinner runTypeSpinner = findViewById(R.id.runTypeSpinner);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.runTypes, R.layout.newentryspinner );
+//        runTypeSpinner.setAdapter(adapter);
         String runTypeSelected = runTypeSpinner.getSelectedItem().toString();
         return runTypeSelected;
     }
     private String getSurfaceType() {
         //Get the surfaceType selected by user
         Spinner surfaceTypeSpinner = findViewById(R.id.surfaceTypeSpinner);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.surfaceTypes, R.layout.newentryspinner );
+//        surfaceTypeSpinner.setAdapter(adapter);
         String surfaceTypeSelected = surfaceTypeSpinner.getSelectedItem().toString();
         return surfaceTypeSelected;
     }
@@ -178,16 +305,28 @@ public class newSimpleRun extends AppCompatActivity {
         final NumberPicker distanceNumberPicker = d.findViewById(R.id.distanceNumberPicker);
         distanceNumberPicker.setMaxValue(99);
         distanceNumberPicker.setMinValue(0);
+        distanceNumberPicker.setFormatter(new NumberPicker.Formatter() {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public String format(int value) {
+                return String.format("%02d", value);
+            }});
 
         final NumberPicker decimalDistanceNumberPicker = d.findViewById(R.id.decimalDistanceNumberPicker);
         decimalDistanceNumberPicker.setMaxValue(99);
         decimalDistanceNumberPicker.setMinValue(0);
+        decimalDistanceNumberPicker.setFormatter(new NumberPicker.Formatter() {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public String format(int value) {
+                return String.format("%02d", value);
+            }});
 
         final NumberPicker miOrKmDistanceNumberPicker = d.findViewById(R.id.miOrKmDistanceNumberPicker);
         miOrKmDistanceNumberPicker.setMaxValue(1);
         miOrKmDistanceNumberPicker.setMinValue(0);
-        miOrKmDistanceNumberPicker.setDisplayedValues(new String[] {"MI", "KM"});
-        final String[] chooseUnits = new String[]{"MI", "KM"};
+        miOrKmDistanceNumberPicker.setDisplayedValues(new String[] {"mi", "mi"});
+        final String[] chooseUnits = new String[]{"mi", "km"};
 
         distanceNumberPicker.setWrapSelectorWheel(false);
         b1.setOnClickListener(new View.OnClickListener()
@@ -197,8 +336,8 @@ public class newSimpleRun extends AppCompatActivity {
                 int distancePicked = distanceNumberPicker.getValue();
                 int decimalPicked = decimalDistanceNumberPicker.getValue();
                 int unitPicked = miOrKmDistanceNumberPicker.getValue();
-                String totalDistance = valueOf(distancePicked) + "." +
-                        valueOf(decimalPicked) + " " + chooseUnits[unitPicked];
+                @SuppressLint("DefaultLocale") String totalDistance = valueOf(distancePicked) + "." +
+                        String.format("%02d",decimalPicked) + " " + chooseUnits[unitPicked];
                 distanceButton.setText(totalDistance);
                 d.dismiss();
             }
@@ -225,9 +364,10 @@ public class newSimpleRun extends AppCompatActivity {
         minuteNumberPicker.setMaxValue(59);
         minuteNumberPicker.setMinValue(0);
         minuteNumberPicker.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return String.format("%02d", value);
+                    @SuppressLint("DefaultLocale")
+                    @Override
+                    public String format(int value) {
+                        return String.format("%02d", value);
             }
         });
 
@@ -236,6 +376,7 @@ public class newSimpleRun extends AppCompatActivity {
         secondNumberPicker.setMaxValue(59);
         secondNumberPicker.setMinValue(0);
         secondNumberPicker.setFormatter(new NumberPicker.Formatter() {
+            @SuppressLint("DefaultLocale")
             @Override
             public String format(int value) {
                 return String.format("%02d", value);
@@ -253,7 +394,7 @@ public class newSimpleRun extends AppCompatActivity {
                 int hoursPicked = hourNumberPicker.getValue();
                 int minutesPicked = minuteNumberPicker.getValue();
                 int secondsPicked = secondNumberPicker.getValue();
-                String totalTime = String.format("%02d", hoursPicked) + ":" +
+                @SuppressLint("DefaultLocale") String totalTime = String.format("%02d", hoursPicked) + ":" +
                         String.format("%02d", minutesPicked) + ":" +
                         String.format("%02d", secondsPicked);
                 elapsedTimeButton.setText(totalTime);

@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".newSimpleRun">
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    tools:context=".newSimpleRun"
+    tools:layout_editor_absoluteY="81dp">
 
     <Button
         android:id="@+id/saveButton"
@@ -14,18 +17,20 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="SAVE RUN"
+        android:elevation="10dp"
+        android:padding="10dp"
+        android:text="@string/save_run"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="lollipop" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="3dp"
+        app:layout_constraintStart_toStartOf="@+id/saveButton"
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
@@ -40,14 +45,17 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorPrimaryDark"
+                android:elevation="10dp"
                 android:ems="10"
                 android:hint="@string/runTitleHintText"
                 android:inputType="textPersonName"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="lollipop" />
 
             <Spinner
                 android:id="@+id/runTypeSpinner"
@@ -57,11 +65,14 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorPrimaryDark"
+                android:elevation="10dp"
                 android:entries="@array/runTypes"
+                android:padding="10dp"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonDatePicker" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonDatePicker"
+                tools:targetApi="lollipop" />
 
             <Spinner
                 android:id="@+id/surfaceTypeSpinner"
@@ -71,7 +82,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorPrimaryDark"
+                android:elevation="10dp"
                 android:entries="@array/surfaceTypes"
+                android:padding="10dp"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -84,6 +97,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:elevation="10dp"
+                android:padding="10dp"
                 android:text="@string/distanceNewEntry"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="48sp"
@@ -98,6 +113,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:elevation="10dp"
+                android:padding="10dp"
                 android:text="@string/newEntryTotalTime"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="48sp"
@@ -113,7 +130,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorPrimaryDark"
-                android:text="@string/buttonDateText"
+                android:elevation="10dp"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleEdit" />
@@ -124,6 +142,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:elevation="10dp"
+                android:padding="10dp"
                 android:text="@string/distanceButtonText"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -137,7 +157,9 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="00:00:00"
+                android:elevation="10dp"
+                android:padding="10dp"
+                android:text="@string/_00_00_00"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"

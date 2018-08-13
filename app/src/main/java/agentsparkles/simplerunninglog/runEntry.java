@@ -16,18 +16,20 @@ import java.util.List;
 @Entity(tableName = "runDatabase")
 public class runEntry {
 
-    public runEntry(int date, String title, String runType,String surfaceType,double totalDistance,int totalTime) {
+    public runEntry(long date, String title, String runType,String surfaceType, String units, double totalDistance, int totalTime, String avgPace) {
         this.date = date;
         this.title = title;
         this.runType = runType;
         this.surfaceType = surfaceType;
+        this.units = units;
         this.totalDistance = totalDistance;
         this.totalTime = totalTime;
+        this.avgPace = avgPace;
 
     }
 
     @PrimaryKey(autoGenerate = false)
-    private int date;
+    private long date;
 
     @ColumnInfo(name = "run_title")
     private String title;
@@ -38,11 +40,17 @@ public class runEntry {
     @ColumnInfo(name = "surface_type")
     private String surfaceType;
 
+    @ColumnInfo(name = "distance_units")
+    private String units;
+
     @ColumnInfo(name = "total_distance")
     private double totalDistance;
 
     @ColumnInfo(name = "total_time")
     private int totalTime;
+
+    @ColumnInfo(name = "avg_pace")
+    private String avgPace;
 
 
     // constructors
@@ -55,11 +63,11 @@ public class runEntry {
         return this.title;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
-    public int getDate() {
+    public long getDate() {
         return this.date;
     }
 
@@ -79,6 +87,7 @@ public class runEntry {
         return this.surfaceType;
     }
 
+
     public void setTotalDistance(double totalDistance) {
         this.totalDistance = totalDistance;
     }
@@ -93,6 +102,22 @@ public class runEntry {
 
     public int getTotalTime() {
         return this.totalTime;
+    }
+
+    public String getUnits() {
+        return units;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
+    }
+
+    public String getAvgPace() {
+        return avgPace;
+    }
+
+    public void setAvgPace(String avgPace) {
+        this.avgPace = avgPace;
     }
 }
 
