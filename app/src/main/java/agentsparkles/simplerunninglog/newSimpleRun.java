@@ -182,7 +182,7 @@ public class newSimpleRun extends AppCompatActivity {
                     String toastNot = finalTitle + date + finalRunType + finalSurfaceType + String.valueOf(finalDistance + totalTimeInSeconds);
                     Toast.makeText(this, toastNot, Toast.LENGTH_LONG).show();
                     db.runEntryDAO().insertAll(new runEntry(millis, finalTitle, finalRunType, finalSurfaceType, distanceUnit, finalDistance, totalTimeInSeconds, avgPace));
-                    startActivity(new Intent(newSimpleRun.this, recentActivty.class));
+                    startActivity(new Intent(newSimpleRun.this, MainActivity.class));
                 }
                 else {String missingFields = "Total Distance is blank";
                 Toast.makeText(this, missingFields, Toast.LENGTH_LONG).show();}

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "agentsparkles.simplerunninglog"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.2'
     implementation 'com.github.shrikanth7698:Collapsible-Calendar-View-Android:v1.0.0'
-
-
+    implementation 'com.github.iammert:ScalingLayout:1.2.1'
+    implementation 'com.ramotion.garlandview:garland-view:0.3.2'
+    implementation 'com.github.sayemkcn:aDateSwitcher:rc~1.1'
 }

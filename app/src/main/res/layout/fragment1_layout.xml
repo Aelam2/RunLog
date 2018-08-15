@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/colorPrimary"
+            app:titleEnabled="false">
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+
+                app:title="Mother!"/>
+
+            <android.support.constraint.ConstraintLayout
+                    android:background="@drawable/shadow"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:id="@+id/constraintLayout"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/searchTitle"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_width="wrap_content"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/searchRange"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_width="wrap_content"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/searchTitle" />
+                    <LinearLayout
+                        android:id="@+id/linearLayout4"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/searchRange">
+
+                        <TextView
+                            android:id="@+id/totalRuns"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:paddingBottom="4dp"
+                            android:text="Total Runs:"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/searchRange" />
+
+                        <TextView
+                            android:id="@+id/totalActivities"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:paddingBottom="4dp"
+                            android:textSize="18sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/totalMileage"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/totalMileage" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+                        <TextView
+                            android:id="@+id/totalMileage"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:paddingBottom="4dp"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/searchRange" />
+
+                        <TextView
+                            android:id="@+id/weeklyTime"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:paddingBottom="4dp"
+                            android:textSize="18sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/totalMileage"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/totalMileage" />
+                    </LinearLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <iammert.com.view.scalinglib.ScalingLayout
+        android:id="@+id/scalingLayout"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        app:radiusFactor="1"
+        android:clickable="true"
+        android:layout_gravity="center_horizontal"
+        android:stateListAnimator="@animator/sl_state_animator"
+        app:layout_behavior="iammert.com.view.scalinglib.ScalingLayoutBehavior">
+
+        <xyz.rimon.adateswitcher.DateSwitcher
+            android:id="@+id/mDateSwitcher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:buttonBackgroundColor="@android:color/darker_gray"
+            app:buttonTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:textBackgroundColor="@color/colorPrimaryDark"
+            app:textColor="@color/white"
+            app:textSize="18sp" />
+
+    </iammert.com.view.scalinglib.ScalingLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/deleteAll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+</android.support.design.widget.CoordinatorLayout>
