@@ -47,8 +47,6 @@ class runAdapter extends RecyclerView.Adapter<runAdapter.ViewHolder> {
         String totalDistance = String.valueOf(runs.get(position).getTotalDistance()) + " " + runs.get(position).getUnits();
         String avgPace = runs.get(position).getAvgPace() + " per /" + runs.get(position).getUnits();
 
-        holder.runDate.setText(finalTime);
-        holder.runTitle.setText(runs.get(position).getTitle());
         holder.dateTitleView.setText(finalTime);
         holder.titleTitleView.setText(runs.get(position).getTitle());
         holder.runType.setText(runs.get(position).getRunType());
@@ -66,14 +64,6 @@ class runAdapter extends RecyclerView.Adapter<runAdapter.ViewHolder> {
             }
         });
 
-            // get our folding cell
-            final FoldingCell fc = holder.foldingCell;
-            // attach click listener to folding cell
-            fc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fc.toggle(false);
-                }});
 
 //        holder.updateButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -101,8 +91,6 @@ class runAdapter extends RecyclerView.Adapter<runAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView runTitle;
-        public TextView runDate;
         public TextView runType;
         public TextView surfaceType;
         public TextView totalDistance;
@@ -117,8 +105,6 @@ class runAdapter extends RecyclerView.Adapter<runAdapter.ViewHolder> {
 
         public ViewHolder(View itemView) {
             super(itemView);
-            runTitle = itemView.findViewById(R.id.runTitle);
-            runDate = itemView.findViewById(R.id.runDate);
             runType = itemView.findViewById(R.id.runType);
             surfaceType = itemView.findViewById(R.id.surfaceType);
             totalDistance = itemView.findViewById(R.id.totalDistance);
@@ -126,7 +112,6 @@ class runAdapter extends RecyclerView.Adapter<runAdapter.ViewHolder> {
             avgPace = itemView.findViewById(R.id.avgPace);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             updateButton = itemView.findViewById(R.id.updateButton);
-            foldingCell = itemView.findViewById(R.id.folding_cell);
             dateTitleView = itemView.findViewById(R.id.dateTitleView);
             titleTitleView = itemView.findViewById(R.id.titleTitleView);
         }

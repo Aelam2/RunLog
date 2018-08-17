@@ -1,6 +1,5 @@
 package agentsparkles.simplerunninglog;
 
-import android.app.Fragment;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,18 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import xyz.rimon.adateswitcher.DateSwitcher;
 
-public class fragment1 extends android.support.v4.app.Fragment {
+public class fragment2 extends android.support.v4.app.Fragment {
     private static final String tag = "Fragment1";
 
     RecyclerView recyclerView;
@@ -46,22 +45,29 @@ public class fragment1 extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment1_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment2_layout, container, false);
         mDateSwitcher = view.findViewById(R.id.mDateSwitcher);
         recyclerView = view.findViewById(R.id.recyclerViewerFragment);
-        totalMileage = view.findViewById(R.id.totalMileage);
-        totalTime = view.findViewById(R.id.weeklyTime);
-        totalActivities = view.findViewById(R.id.totalActivities);
+        totalMileage = view.findViewById(R.id.monthTotalMileage);
+        totalTime = view.findViewById(R.id.monthTime);
+        totalActivities = view.findViewById(R.id.monthTotalActivites);
 
 
         final runDatabase db = Room.databaseBuilder(getActivity(), runDatabase.class, "Recent_Runs")
                 .allowMainThreadQueries()
                 .build();
 
-        Date topDate = new Date();
-        Date bottomDate = new Date();
+        Calendar min = Calendar.getInstance();
+        min.setTime(new Date());
+        min.set(Calendar.DAY_OF_MONTH, min.getActualMinimum(Calendar.DAY_OF_MONTH));
+        Log.i("first of month", "onCreateView: " + min.getTime());
+        Calendar max = Calendar.getInstance();
+        max.setTime(new Date());
+        max.set(Calendar.DAY_OF_MONTH, max.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Log.i("first of month", "onCreateView: " + max.getTime());
 
-        runs = db.runEntryDAO().findBetweenDates((bottomDate.getTime() - 604800000), topDate.getTime());
+
+        runs = db.runEntryDAO().findBetweenDates(min.getTimeInMillis(), max.getTimeInMillis());
 
         rangeDistance = 0;
         rangeTime = 0;
@@ -84,7 +90,7 @@ public class fragment1 extends android.support.v4.app.Fragment {
         adapter = new runAdapter(db, runs);
         recyclerView.setAdapter(adapter);
 
-        this.mDateSwitcher.setType(DateSwitcher.Type.WEEK);
+        this.mDateSwitcher.setType(DateSwitcher.Type.MONTH);
         // set listener
         this.mDateSwitcher.setOnDateChangeListener(new DateSwitcher.OnDateChangeListener() {
             Long TopDate;

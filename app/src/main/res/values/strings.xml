@@ -30,11 +30,13 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-    <string name="title_activity_main">Most Recent Runs</string>
+    <string name="title_activity_main">Simple Run Log</string>
     <string name="delete_run">Delete Run</string>
     <string name="save_run">SAVE RUN</string>
     <string name="_00_00_00">00:00:00</string>
     <string name="delete_all">Delete All</string>
     <string name="title_activity_single_day_viewer">Single Day Selector</string>
     <string name="update_run">UPDATE RUN</string>
+    <string name="update">UPDATE</string>
+    <string name="delete">DELETE</string>
 </resources>

@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager){
         SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new fragment1(), "Fragment 1");
+        adapter.addFragment(new fragment2(), "Fragment 2");
+        adapter.addFragment(new fragment3(), "Fragment 3");
         viewPager.setAdapter(adapter);
     }
 

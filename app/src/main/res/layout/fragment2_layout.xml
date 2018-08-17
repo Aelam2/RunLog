@@ -5,16 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    android:clipToPadding="false">
+    android:background="@android:color/background_light">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:elevation="8dp"
-        app:elevation="8dp">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -49,10 +46,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/searchTitle"
+                    android:id="@+id/monthSearchTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Weekly Overview"
+                    android:text="Monthly Overview"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -66,10 +63,10 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/searchTitle">
+                    app:layout_constraintTop_toBottomOf="@id/monthSearchTitle">
 
                     <TextView
-                        android:id="@+id/totalRuns"
+                        android:id="@+id/monthTotalRuns"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="4dp"
@@ -79,10 +76,10 @@
                         android:textColor="@color/white"
                         android:textSize="30sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/searchRange" />
+                        app:layout_constraintTop_toBottomOf="@+id/monthSearchTitle" />
 
                     <TextView
-                        android:id="@+id/totalActivities"
+                        android:id="@+id/monthTotalActivites"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -105,7 +102,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
                     <TextView
-                        android:id="@+id/totalMileage"
+                        android:id="@+id/monthTotalMileage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -116,18 +113,18 @@
                         app:layout_constraintTop_toBottomOf="@+id/searchRange" />
 
                     <TextView
-                        android:id="@+id/weeklyTime"
+                        android:id="@+id/monthTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:paddingBottom="4dp"
+                        android:textColor="@color/white"
                         android:textSize="24sp"
                         app:layout_constraintBaseline_toBaselineOf="@+id/totalMileage"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/totalMileage"
-                        android:textColor="@color/white" />
+                        app:layout_constraintStart_toEndOf="@+id/totalMileage" />
                 </LinearLayout>
 
             </android.support.constraint.ConstraintLayout>
@@ -150,7 +147,7 @@
 
     <iammert.com.view.scalinglib.ScalingLayout
         android:id="@+id/scalingLayout"
-        android:layout_width="325dp"
+        android:layout_width="300dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
         android:clickable="true"
@@ -162,7 +159,6 @@
             android:id="@+id/mDateSwitcher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
             app:buttonBackgroundColor="@color/colorLightAccent"
             app:buttonTextColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
